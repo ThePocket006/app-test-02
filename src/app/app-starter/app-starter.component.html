@@ -1,0 +1,58 @@
+<div class="container mb-3">
+    <div class="row mb-3">
+
+        <div class="col-12">
+            <h3>All requests</h3>
+        </div>
+
+        <div class="col-12 mb-3">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-row g-2">
+                        <div class="col">
+                            <input type="text" [ngClass]="{'form-control':true}" [(ngModel)]="filter.search">
+                        </div>
+                        <div class="col">
+                            <select type="text" [ngClass]="{'form-control':true}" [(ngModel)]="filter.brandId">
+                                <option value="-1">- Brand -</option>
+                                <option *ngFor="let item of brands" [value]="item.brandId">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-row g-2 float-right">
+                        <button class="btn btn-primary" (click)="onClick($event)">Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mb-3">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Status</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Submission</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let request of requests?.requests" (click)="onClickEdit($event, request.requestId)">
+                        <td>{{ request.requestStatus.value }}</td>
+                        <td>{{ request.campaignName }}</td>
+                        <td><span [ngClass]="{'badge':true, 'badge-secondary': !request.advice, 'badge-danger': request.advice}">{{ request.advice ? 'Advice':'Request' }}</span></td>
+                        <td>{{ request.brand.name }}</td>
+                        <td>{{ request.createdDate | date:'fullDate' }}</td>
+                        <td>
+                            <i class="fab fa-arrow-alt-from-right"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

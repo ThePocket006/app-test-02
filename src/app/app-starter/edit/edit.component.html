@@ -1,0 +1,76 @@
+<div class="container mb-3">
+    <div class="row mb-3">
+        <div class="col-md-10 col-lg-10 col-12 container-fluid">
+            <h3>Edit #{{ request.requestId }}</h3>
+        </div>
+
+        <div class="col-md-10 col-lg-10 col-12 container-fluid" [formGroup]="form">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row mb-3">
+                        <div class="col">
+                            <label for="">Brand *</label>
+                        </div>
+                        <div class="col">
+                            <select formControlName="brands" [ngClass]="{'form-control':true}" [(ngModel)]="request.brand.brandId">
+                                <option value="-1">- Brand -</option>
+                                <option *ngFor="let item of brands" [value]="item.brandId">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <label for="">Campaign name *</label>
+                        <input type="text" formControlName="campaignName" [ngClass]="{'form-control':true}" [(ngModel)]="request.campaignName">
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="col-12">
+                            <label for="">Media *</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-row mx-3">
+                                <div *ngFor="let media of medias" class="form-check mb-3 col-6">
+                                    <input type="checkbox" [id]="'media-check-'+media.mediaId"
+                                    [ngClass]="{'form-check-input':true}" formArrayName="selectedMedias" 
+                                    [value]="media.mediaId" (change)="onCheckboxChange($event)" [checked]="isPreSelectedMedias(media)">
+                                    <label class="form-check-label" [for]="'media-check-'+media.mediaId">
+                                        {{ media.value }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <label for="">Deadline for decision *</label>
+                        <input type="date" class="form-control" [(ngModel)]="ddDate" [value]="ddDate">
+                        <!-- <div class="input-group">
+                            <input
+                                class="form-control"
+                                placeholder="yyyy-mm-dd"
+                                name="dp"
+                                formControlName="ddDate"
+                                [(ngModel)]="ddDate"
+                                ngbDatepicker
+                                #d="ngbDatepicker"
+                                (click)="d.toggle()"
+                            />
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div> -->
+                    </div>
+
+                    <div class="form-row float-right">
+                        <button type="submit" class="btn btn-primary" (click)="onClick()">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+        </div>
+    </div>
+</div>
