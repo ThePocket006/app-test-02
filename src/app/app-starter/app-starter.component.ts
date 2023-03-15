@@ -28,6 +28,7 @@ export interface ICountrie {
   value: string
 }
 
+  /**NOTE - interface de la requete de campagne */
 export interface IRequest {
   requestId: number,
   advice: boolean,
@@ -121,6 +122,7 @@ export class AppStarterComponent implements OnInit {
 
   }
 
+  /**NOTE - function d'initialisation des donnees */
   private initialze(){
     this.brands = <Array<IBrand>>this.route.snapshot.data['brands']
     this.requests = <Payload>this.route.snapshot.data['requests']
@@ -155,22 +157,25 @@ export class AppStarterComponent implements OnInit {
     //console.log('E::3', this.filter, <IFilter>this.filter, search, brandId)
   }
 
+  /**NOTE - function de redirection vers la page de modification */
   onClickEdit(e: Event, id:number){
     //console.log(e, id)
     this.router.navigate([`edit/${id}`])
   }
 
+  /**NOTE - function de filtre des requetes sur le nom de la campagne */
   searchFilter(search:string):Array<IRequest> {
     if(search){
       return <Array<IRequest>>_.filter(this.requests.requests, (v:IRequest) => {
         //console.log('indexOf::log', _.indexOf(v.campaignName, search), v.campaignName, search)
-        return v.campaignName.indexOf(search) !== -1;
+        return v.campaignName.toLowerCase().indexOf(search.toLowerCase()) !== -1;
       });
     }else{
       return this.requests.requests;
     }
   }
 
+  /**NOTE - function de filtre des requetes sur le brand */
   brandFilter(id:number):Array<IRequest> {
     if(id > -1 ){
       return <Array<IRequest>>_.filter(this.requests.requests, (v:IRequest) => {
